@@ -1,4 +1,37 @@
 {
-  "name": "md-links",
-  "version": "0.1.0"
+  "name": "@erikagonza25/md-links",
+  "version": "0.1.0",
+  "description": "Creación de una libreria",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --verbose --coverage",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erikagonza25/LIM014-mdlinks.git"
+  },
+  "keywords": [
+    "npm",
+    "javascript",
+    "link"
+  ],
+  "author": "Erika Gonzalez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erikagonza25/LIM014-mdlinks/issues"
+  },
+  "homepage": "https://github.com/erikagonza25/LIM014-mdlinks#readme",
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0"
+  }
 }
