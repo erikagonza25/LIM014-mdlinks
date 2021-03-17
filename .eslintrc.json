@@ -16,10 +16,6 @@
     "rules": {
       "no-console": "warn",
       "linebreak-style": 0,
-      "prefer-template":"off",
-      "no-else-return":"off",
-      "no-confusing-arrow":"off",
-      "no-restricted-syntax": 0,
-      "implicit-arrow-linebreak":0
+      "quotes":["doble"]
     }
 }
