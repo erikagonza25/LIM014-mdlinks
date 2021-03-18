@@ -20,22 +20,17 @@ const changeDirectory = (dir) => {
 changeDirectory(directorio);
 console.log(changeDirectory(directorio));
 // Función para comprobar si el archivo o directorio existe
-const existFile = (rut) => {
-  if (fs.existsSync(rut)) {
-    return rut;
-  } else {
-    return "El archivo o directorio no existe";
-  }
-};
+const existFile = (rut) =>
+  fs.existsSync(rut) ? rut : "El archivo o directorio no existe";
+
 existFile(test);
 console.log(existFile(test));
 // Función para saber si es un archivo o un directorio
 const typeRuta = (test) => {
-  typeRut = fs.statSync(test);
-  if (typeRut.isFile() === true) {
-    return "La ruta es un archivo: " + test;
-  }
-  return "La ruta es un directorio: " + test;
+  const typeRut = fs.statSync(test);
+  return typeRut.isFile() === true
+    ? "La ruta es un archivo: " + test
+    : "La ruta es un directorio: " + test;
 };
 typeRuta(test);
 console.log(typeRuta(test));
@@ -45,10 +40,9 @@ const directoryTour = (test) =>
     .readdirSync(test)
     .map((file) => {
       const subpath = test + "/" + file;
-      if (fs.lstatSync(subpath).isDirectory()) {
-        return directoryTour(subpath);
-      }
-      return subpath;
+      return fs.lstatSync(subpath).isDirectory()
+        ? directoryTour(subpath)
+        : subpath;
     })
     .flat();
 directoryTour(test);
@@ -60,11 +54,7 @@ const typeFile = (test) => {
     .map((file) => path.join(test, file))
     .filter((path) => fs.statSync(path).isFile())
     .filter((file) => {
-      if (path.extname(file) == ".md") {
-        return file;
-      } else {
-        return false;
-      }
+      return path.extname(file) == ".md" ? file : false;
     });
   return fileType;
 };
