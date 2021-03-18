@@ -16,54 +16,50 @@ describe("describe la función checkFileExists", () => {
     );
   });
 });
-/* describe('describe la función fileOrDirectory', () => {
-  it('', () => {
-    expect(mdLinks.obtenerLinks('.editorconfig.js')).toEqual('isFile');
+describe("existFile debería mostrar si el archivo existe o no", () => {
+  it("Devolver el mismo archivo si existe", () => {
+    expect(mdLinks.existFile("README.md")).toEqual("README.md");
   });
-  it('', () => {
-    expect(mdLinks.obtenerLinks('.git.js')).toBe('isDirectory');
+  it("Devolver un mensaje si el archivo no existe", () => {
+    expect(mdLinks.existFile("./erika")).toEqual(
+      "El archivo o directorio no existe"
+    );
   });
 });
-describe('describe la función prueba', () => {
-  it('', () => {
-    expect(mdLinks.prueba('index.js')).toEqual('index.js');
+describe("typeRuta debería indicar si es un directorio o un archivo", () => {
+  test("test que comprueba si es un directorio", () => {
+    expect(mdLinks.typeRuta("./prueba")).toEqual(
+      "La ruta es un directorio: ./prueba"
+    );
   });
 
-  it('', () => {
-    expect(mdLinks.prueba('')).toEqual('El archivo no existe, verifique la información proporcionada');
+  test("test que comprueba si es un archivo", () => {
+    expect(mdLinks.typeRuta("index.js")).toEqual(
+      "La ruta es un archivo: index.js"
+    );
   });
 });
-describe('describe la función pruebaTwo', () => {
-  it('', () => {
-    expect(mdLinks.pruebaTwo('erika')).toEqual('El directorio no existe, verifique la información proporcionada');
-  });
-  it('', () => {
-    expect(mdLinks.pruebaTwo('test')).toBe('test');
-  });
-});
-
- describe('describe la función checkFileExists', () => {
-  it('debe devolver la ruta del archivo (./README.md) si el archivo existe', () => {
-    expect(mdLinks.fileExists('./README.md')).toEqual('./README.md');
+describe("directoryTour debería leer el directorio recursivamente", () => {
+  test("test para mostrar los archivos dentro de un directorio", () => {
+    expect(mdLinks.directoryTour("./prueba")).toEqual([
+      "./prueba/erika.md",
+      "./prueba/hola/hoy.md",
+      "./prueba/hola/indexTwo.js",
+      "./prueba/hola.html",
+      "./prueba/hola.js",
+      "./prueba/styles.css",
+    ]);
   });
 });
-describe('describe la función checkExtension', () => {
-  it('Si es un archivo Markdown (.md ), se da el mismo archivo', () => {
-    expect(mdLinks.checkExtension('./README.md')).toEqual('./README.md');
+describe("typeFile debería recorrer los archivos y mostrarme solo los .md", () => {
+  test("al recibir un directorio busca solo los archivos .md", () => {
+    expect(mdLinks.typeFile("./prueba")).toEqual(["prueba\\erika.md"]);
   });
 });
-describe('describe la función checkExtension', () => {
-  it('No es un archivo Markdown (.md ), se le avisa que no lo es', () => {
-    expect(mdLinks.checkExtension('./package.json')).toEqual('No es un archivo(.md)');
+describe("readMd debería recorrer los archivos y mostrarme solo los .md", () => {
+  test("error al leer un archivo", () => {
+    expect(mdLinks.readMd()).toEqual(
+      'TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined'
+    );
   });
 });
-/* describe('describe la función checkExtension', () => {
-  it('No es un archivo Markdown (.md ), se le avisa que no lo es', () => {
-    expect(mdLinks.prueba('./package.json')).toEqual('No es un archivo(.md)');
-  });
-}); */
-/* describe('mdLinks', () => {
-  it('es una función', () => {
-    expect(typeof mdLinks).toBe('function');
-  });
-}); */
