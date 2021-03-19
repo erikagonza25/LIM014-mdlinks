@@ -33,6 +33,8 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
-    "markdown-to-html": "^0.0.13"
+    "cheerio": "^1.0.0-rc.5",
+    "markdown-to-html": "^0.0.13",
+    "marked": "^0.3.19"
   }
 }
