@@ -86,6 +86,7 @@ const searchLinks = (condicion) => {
   readHtml("a").map((i, el) => (allLinks[i] = readHtml(el).attr("href")));
   return allLinks;
 };
+searchLinks(fileHtml);
 console.log(searchLinks(fileHtml));
 
 mdLinks.changeDirectory = changeDirectory;
