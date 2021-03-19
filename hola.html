@@ -1,0 +1,714 @@
+<h1 id="markdown-links">Markdown Links</h1>
+<h2 id="-ndice">Índice</h2>
+<ul>
+  <li><a href="#1-preámbulo">1. Preámbulo</a></li>
+  <li><a href="#2-resumen-del-proyecto">2. Resumen del proyecto</a></li>
+  <li><a href="#3-objetivos-de-aprendizaje">3. Objetivos de aprendizaje</a></li>
+  <li>
+    <a href="#4-consideraciones-generales">4. Consideraciones generales</a>
+  </li>
+  <li>
+    <a href="#5-criterios-de-aceptación-mínimos-del-proyecto"
+      >5. Criterios de aceptación mínimos del proyecto</a
+    >
+  </li>
+  <li><a href="#6-entregables">6. Entregables</a></li>
+  <li><a href="#7-hacker-edition">7. Hacker edition</a></li>
+  <li>
+    <a href="#8-pistas-tips-y-lecturas-complementarias"
+      >8. Pistas, tips y lecturas complementarias</a
+    >
+  </li>
+  <li><a href="#9-checklist">9. Checklist</a></li>
+</ul>
+<hr />
+<h2 id="1-pre-mbulo">1. Preámbulo</h2>
+<p>
+  <a href="https://es.wikipedia.org/wiki/Markdown">Markdown</a> es un lenguaje
+  de marcado<br />ligero muy popular entre developers. Es usado en muchísimas
+  plataformas que<br />manejan texto plano (GitHub, foros, blogs, ...), y es muy
+  común<br />encontrar varios archivos en ese formato en cualquier tipo de
+  repositorio<br />(empezando por el tradicional <code>README.md</code>).
+</p>
+<p>
+  Estos archivos <code>Markdown</code> normalmente contienen
+  <em>links</em> (vínculos/ligas) que<br />muchas veces están rotos o ya no son
+  válidos y eso perjudica mucho el valor de<br />la información que se quiere
+  compartir.
+</p>
+<p>
+  Dentro de una comunidad de código abierto, nos han propuesto crear una<br />herramienta
+  usando <a href="https://nodejs.org/">Node.js</a>, que lea y analice
+  archivos<br />en formato <code>Markdown</code>, para verificar los links que
+  contengan y reportar<br />algunas estadísticas.
+</p>
+<p>
+  <img
+    src="https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg"
+    alt="md-links"
+  />
+</p>
+<h2 id="2-resumen-del-proyecto">2. Resumen del proyecto</h2>
+<p>
+  <a href="https://nodejs.org/es/">Node.js</a> es un entorno de ejecución para
+  JavaScript<br />construido con el
+  <a href="https://developers.google.com/v8/"
+    >motor de JavaScript V8 de Chrome</a
+  >.<br />Esto nos va a permitir ejecutar JavaScript en el entorno del sistema
+  operativo,<br />ya sea tu máquina o un servidor, lo cual nos abre las puertas
+  para poder<br />interactuar con el sistema en sí, archivos, redes, ...
+</p>
+<p>
+  En este proyecto nos alejamos un poco del navegador para construir un
+  programa<br />que se ejecute usando Node.js, donde aprenderemos sobre cómo
+  interactuar con el<br />sistema archivos, con el entorno (<em>proceso</em>,
+  <em>env</em>, <em>stdin/stdout/stderr</em>), ...
+</p>
+<p>
+  En este proyecto crearás una herramienta de línea de comando (CLI) así como
+  tu<br />propia librería (o biblioteca - library) en JavaScript.
+</p>
+<h2 id="3-objetivos-de-aprendizaje">3. Objetivos de aprendizaje</h2>
+<p>
+  Diseñar tu propia librería es una experiencia fundamental para cualquier<br />desarrollador
+  porque que te obliga a pensar en la interfaz (API) de tus<br /><em
+    >módulos</em
+  >
+  y cómo será usado por otros developers. Debes tener especial<br />consideración
+  en peculiaridades del lenguaje, convenciones y buenas prácticas.
+</p>
+<p>A continuación puedes ver los objetivos de aprendizaje de este proyecto:</p>
+<h3 id="javascript">JavaScript</h3>
+<ul>
+  <li>[ ] Uso de condicionales (if-else | switch | operador ternario)</li>
+  <li>
+    [ ]
+    <a
+      href="https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Funciones"
+      >Uso de funciones (parámetros | argumentos | valor de retorno)</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a
+      href="https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209"
+      >Manipular arrays (filter | map | sort | reduce)</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a
+      href="https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object"
+      >Manipular objects (key | value)</a
+    >
+  </li>
+  <li>
+    [ ] Uso ES modules (<a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import"
+      ><code>import</code></a
+    ><br />|
+    <a
+      href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export"
+      ><code>export</code></a
+    >)
+  </li>
+  <li>
+    [ ]
+    <a
+      href="https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia"
+      >Diferenciar entre expression y statements.</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a
+      href="https://developer.mozilla.org/es/docs/Web/JavaScript/Data_structures"
+      >Diferenciar entre tipos de datos atómicos y estructurados.</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a href="https://developer.mozilla.org/es/docs/Glossary/Callback_function"
+      >Uso de callbacks.</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a
+      href="https://scotch.io/tutorials/javascript-promises-for-dummies#toc-consuming-promises"
+      >Consumo de Promesas.</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a
+      href="https://www.freecodecamp.org/news/how-to-write-a-javascript-promise-4ed8d44292b8/"
+      >Creación de Promesas.</a
+    >
+  </li>
+</ul>
+<h3 id="node">Node</h3>
+<ul>
+  <li>
+    [ ] Uso de sistema de archivos. (<a href="https://nodejs.org/api/fs.html"
+      >fs</a
+    >, <a href="https://nodejs.org/api/path.html">path</a>)
+  </li>
+  <li>
+    [ ] Instalar y usar módulos. (<a href="https://www.npmjs.com/">npm</a>)
+  </li>
+  <li>
+    [ ] Creación de modules.
+    <a href="https://nodejs.org/docs/latest-v0.10.x/api/modules.html"
+      >(CommonJS)</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a href="https://docs.npmjs.com/files/package.json"
+      >Configuración de package.json.</a
+    >
+  </li>
+  <li>
+    [ ]
+    <a href="https://docs.npmjs.com/misc/scripts"
+      >Configuración de npm-scripts</a
+    >
+  </li>
+  <li>
+    [ ] Uso de CLI (Command Line Interface - Interfaz de Línea de Comando)
+  </li>
+</ul>
+<h3 id="testing">Testing</h3>
+<ul>
+  <li>
+    [ ]
+    <a href="https://jestjs.io/docs/es-ES/getting-started">Testeo unitario.</a>
+  </li>
+  <li>
+    [ ]
+    <a href="https://jestjs.io/docs/es-ES/asynchronous">Testeo asíncrono.</a>
+  </li>
+  <li>
+    [ ]
+    <a href="https://jestjs.io/docs/es-ES/manual-mocks"
+      >Uso de librerias de Mock.</a
+    >
+  </li>
+  <li>[ ] Uso de Mocks manuales.</li>
+  <li>[ ] Testeo para múltiples Sistemas Operativos.</li>
+</ul>
+<h3 id="estructura-del-c-digo-y-gu-a-de-estilo">
+  Estructura del código y guía de estilo
+</h3>
+<ul>
+  <li>
+    [ ]
+    <a
+      href="https://medium.com/@sebastianpaduano/modularizaci%C3%B3n-en-javascript-538bd6c75fa"
+      >Organizar y dividir el código en módulos (Modularización)</a
+    >
+  </li>
+  <li>
+    [ ] Uso de identificadores descriptivos (<a
+      href="http://snowdream.github.io/javascript-style-guide/javascript-style-guide/es/naming-conventions.html"
+      >Nomenclatura</a
+    >
+    | <a href="https://geekytheory.com/semantica-coder">Semántica</a>)
+  </li>
+  <li>[ ] Uso de linter (ESLINT)</li>
+</ul>
+<h3 id="git-y-github">Git y GitHub</h3>
+<ul>
+  <li>
+    [ ]
+    <a href="https://github.com/jlord/git-it-electron"
+      >Uso de comandos de git (add | commit | pull | status | push)</a
+    >
+  </li>
+  <li>[ ] Manejo de repositorios de GitHub (clone | fork | gh-pages)</li>
+  <li>
+    [ ] Colaboración en Github (branches | pull requests | |<a
+      href="https://git-scm.com/book/en/v2/Git-Basics-Tagging"
+      >tags</a
+    >)
+  </li>
+  <li>[ ] Organización en Github (projects | issues | labels | milestones)</li>
+</ul>
+<h3 id="http">HTTP</h3>
+<ul>
+  <li>
+    [ ] Verbos HTTP (<a
+      href="https://nodejs.org/api/http.html#http_http_get_options_callback"
+      >http.get</a
+    >)
+  </li>
+</ul>
+<h3 id="fundamentos-de-programaci-n">Fundamentos de programación</h3>
+<ul>
+  <li>
+    [ ] <a href="https://www.youtube.com/watch?v=lPPgY3HLlhQ">Recursión.</a>
+  </li>
+</ul>
+<hr />
+<h2 id="4-consideraciones-generales">4. Consideraciones generales</h2>
+<ul>
+  <li>
+    <p>Este proyecto se debe &quot;resolver&quot; de manera individual.</p>
+  </li>
+  <li>
+    <p>
+      La <strong>librería</strong> y el
+      <strong>script ejecutable</strong> (herramienta de línea de comando -<br />CLI)
+      deben estar implementados en JavaScript para ser ejecutados con<br />Node.js.
+      <strong>Está permitido usar librerías externas</strong>.
+    </p>
+  </li>
+  <li>
+    <p>
+      Tu módulo <strong>debe ser instalable</strong> via
+      <code>npm install &lt;github-user&gt;/md-links</code>. Este<br />módulo
+      debe incluir tanto un <em>ejecutable</em> que podamos invocar en la línea
+      de<br />comando como una interfaz que podamos importar con
+      <code>require</code> para usarlo<br />programáticamente.
+    </p>
+  </li>
+  <li>
+    <p>
+      Los <strong>tests unitarios</strong> deben cubrir un mínimo del 70% de
+      <em>statements</em>,<br /><em>functions</em>, <em>lines</em> y
+      <em>branches</em>. Te recomendamos explorar
+      <a href="https://jestjs.io/">Jest</a><br />para tus pruebas unitarias.
+    </p>
+  </li>
+  <li>
+    <p>
+      Para este proyecto <strong>no está permitido</strong> utilizar
+      <code>async/await</code>.
+    </p>
+  </li>
+  <li>
+    <p>
+      Para este proyecto es <strong>opcional</strong> el uso de ES Modules
+      <code>(import/export)</code>, en el<br />caso optes utilizarlo deberás de
+      crear un script de <code>build</code> en el <code>package.json</code
+      ><br />que los transforme en <code>requires</code> y
+      <code>module.exports</code> con ayuda de <strong>babel</strong>.
+    </p>
+  </li>
+</ul>
+<h2 id="5-criterios-de-aceptaci-n-m-nimos-del-proyecto">
+  5. Criterios de aceptación mínimos del proyecto
+</h2>
+<p>
+  Para comenzar este proyecto tendrás que hacer un
+  <strong><em>fork</em></strong> y
+  <strong><em>clonar</em></strong> este<br />repositorio.
+</p>
+<p>
+  Antes de comenzar a codear, es necesario crear un
+  <strong>plan de acción</strong>. Esto debería<br />quedar detallado en el
+  <code>README.md</code> de tu repo y en una serie de
+  <strong><em>issues</em></strong
+  ><br />y <strong><em>milestones</em></strong> para priorizar y organizar el
+  trabajo, y para poder hacer<br />seguimiento de tu progreso.
+</p>
+<p>
+  Dentro de cada <strong><em>milestone</em></strong> se crearán y asignarán los
+  <strong><em>issues</em></strong> que cada quien<br />considere necesarios.
+</p>
+<h3 id="archivos-del-proyecto">Archivos del proyecto</h3>
+<ul>
+  <li>
+    <code>README.md</code> con descripción del módulo, instrucciones de
+    instalación/uso,<br />documentación del API y ejemplos. Todo lo relevante
+    para que cualquier<br />developer que quiera usar tu librería pueda hacerlo
+    sin inconvenientes.
+  </li>
+  <li>
+    <code>index.js</code>: Desde este archivo debes exportar
+    <strong>una</strong> función (<code>mdLinks</code>).
+  </li>
+  <li>
+    <code>package.json</code> con nombre, versión, descripción, autores,
+    licencia,<br />dependencias, scripts (pretest, test, ...)
+  </li>
+  <li>
+    <code>.editorconfig</code> con configuración para editores de texto. Este
+    archivo no se<br />debe cambiar.
+  </li>
+  <li>
+    <code>.eslintrc</code> con configuración para linter. Este archivo no<br />se
+    debe cambiar.
+  </li>
+  <li>
+    <code>.gitignore</code> para ignorar <code>node_modules</code> u otras
+    carpetas que no deban<br />incluirse en control de versiones
+    (<code>git</code>).
+  </li>
+  <li>
+    <code>test/md-links.spec.js</code> debe contener los tests unitarios para la
+    función<br /><code>mdLinks()</code>. Tu inplementación debe pasar estos
+    tets.
+  </li>
+</ul>
+<h1 id="este-proyecto-consta-de-dos-partes-listadas-aqu-">
+  Este proyecto consta de <strong>dos partes</strong> listadas aquí
+</h1>
+<h3 id="1-javascript-api">1) JavaScript API</h3>
+<p>
+  El módulo debe poder <strong>importarse</strong> en otros scripts de Node.js y
+  debe ofrecer la<br />siguiente interfaz:
+</p>
+<h4 id="mdlinks-path-options-"><code>mdLinks(path, options)</code></h4>
+<h5 id="argumentos">Argumentos</h5>
+<ul>
+  <li>
+    <code>path</code>: Ruta <strong>absoluta</strong> o
+    <strong>relativa</strong> al archivo o directorio. Si la ruta pasada es<br />relativa,
+    debe resolverse como relativa al directorio desde donde se invoca<br />node
+    - <em>current working directory</em>).
+  </li>
+  <li>
+    <code>options</code>: Un objeto con <strong>únicamente</strong> la siguiente
+    propiedad:
+    <ul>
+      <li>
+        <code>validate</code>: Booleano que determina si se desea validar los
+        links<br />encontrados.
+      </li>
+    </ul>
+  </li>
+</ul>
+<h5 id="valor-de-retorno">Valor de retorno</h5>
+<p>
+  La función debe <strong>retornar una promesa</strong> (<code>Promise</code>)
+  que <strong>resuelva a un arreglo</strong><br />(<code>Array</code>) de
+  objetos (<code>Object</code>), donde cada objeto representa un link y
+  contiene<br />las siguientes propiedades:
+</p>
+<ul>
+  <li><code>href</code>: URL encontrada.</li>
+  <li>
+    <code>text</code>: Texto que aparecía dentro del link
+    (<code>&lt;a&gt;</code>).
+  </li>
+  <li><code>file</code>: Ruta del archivo donde se encontró el link.</li>
+</ul>
+<h4 id="ejemplo-resultados-como-comentarios-">
+  Ejemplo (resultados como comentarios)
+</h4>
+<pre><code class="lang-js">const mdLinks = require(&quot;md-links&quot;);
+
+mdLinks(&quot;./some/example.md&quot;)
+  .then(links =&gt; {
+    // =&gt; [{ href, text, file }]
+  })
+  .catch(console.error);
+
+mdLinks(&quot;./some/example.md&quot;, { validate: true })
+  .then(links =&gt; {
+    // =&gt; [{ href, text, file, status, ok }]
+  })
+  .catch(console.error);
+
+mdLinks(&quot;./some/dir&quot;)
+  .then(links =&gt; {
+    // =&gt; [{ href, text, file }]
+  })
+  .catch(console.error);
+</code></pre>
+<h3 id="2-cli-command-line-interface-interfaz-de-l-nea-de-comando-">
+  2) CLI (Command Line Interface - Interfaz de Línea de Comando)
+</h3>
+<p>
+  El ejecutable de nuestra aplicación debe poder ejecutarse de la siguiente<br />manera
+  a través de la <strong>terminal</strong>:
+</p>
+<p><code>md-links &lt;path-to-file&gt; [options]</code></p>
+<p>Por ejemplo:</p>
+<pre><code class="lang-sh">$ md-links ./some/example.md
+./some/example.md http://algo.com/2/3/ Link a algo
+./some/example.md https://otra-cosa.net/algun-doc.html algún doc
+./some/example.md http://google.com/ Google
+</code></pre>
+<p>
+  El comportamiento por defecto no debe validar si las URLs responden ok o
+  no,<br />solo debe identificar el archivo markdown (a partir de la ruta que
+  recibe como<br />argumento), analizar el archivo Markdown e imprimir los links
+  que vaya<br />encontrando, junto con la ruta del archivo donde aparece y el
+  texto<br />que hay dentro del link (truncado a 50 caracteres).
+</p>
+<h4 id="options">Options</h4>
+<h5 id="-validate"><code>--validate</code></h5>
+<p>
+  Si pasamos la opción <code>--validate</code>, el módulo debe hacer una
+  petición HTTP para<br />averiguar si el link funciona o no. Si el link resulta
+  en una redirección a una<br />URL que responde ok, entonces consideraremos el
+  link como ok.
+</p>
+<p>Por ejemplo:</p>
+<pre><code class="lang-sh">$ md-links ./some/example.md --validate
+./some/example.md http://algo.com/2/3/ ok 200 Link a algo
+./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
+./some/example.md http://google.com/ ok 301 Google
+</code></pre>
+<p>
+  Vemos que el <em>output</em> en este caso incluye la palabra <code>ok</code> o
+  <code>fail</code> después de<br />la URL, así como el status de la respuesta
+  recibida a la petición HTTP a dicha<br />URL.
+</p>
+<h5 id="-stats"><code>--stats</code></h5>
+<p>
+  Si pasamos la opción <code>--stats</code> el output (salida) será un texto con
+  estadísticas<br />básicas sobre los links.
+</p>
+<pre><code class="lang-sh">$ md-links ./some/example.md --stats
+Total: 3
+Unique: 3
+</code></pre>
+<p>
+  También podemos combinar <code>--stats</code> y <code>--validate</code> para
+  obtener estadísticas que<br />necesiten de los resultados de la validación.
+</p>
+<pre><code class="lang-sh">$ md-links ./some/example.md --stats --validate
+Total: 3
+Unique: 3
+Broken: 1
+</code></pre>
+<h2 id="6-entregables">6. Entregables</h2>
+<p>
+  Módulo instalable via <code>npm install &lt;github-user&gt;/md-links</code>.
+  Este módulo debe<br />incluir tanto <strong>un ejecutable</strong> como
+  <strong>una interfaz</strong> que podamos importar con <code>require</code
+  ><br />para usarlo programáticamente.
+</p>
+<h2 id="7-hacker-edition">7. Hacker edition</h2>
+<p>
+  Las secciones llamadas <em>Hacker Edition</em> son
+  <strong>opcionales</strong>. Si <strong>terminaste</strong><br />con todo lo
+  anterior y te queda tiempo, intenta completarlas. Así podrás<br />profundizar
+  y/o ejercitar más sobre los objetivos de aprendizaje del proyecto.
+</p>
+<ul>
+  <li>
+    Puedes agregar la propiedad <code>line</code> a cada objeto
+    <code>link</code> indicando en qué línea<br />del archivo se encontró el
+    link.
+  </li>
+  <li>Puedes agregar más estadísticas.</li>
+  <li>Integración continua con Travis o Circle CI.</li>
+</ul>
+<hr />
+<h2 id="8-pistas-tips-y-lecturas-complementarias">
+  8. Pistas, tips y lecturas complementarias
+</h2>
+<h3 id="faqs">FAQs</h3>
+<h4 id="-c-mo-hago-para-que-mi-m-dulo-sea-instalable-desde-github-">
+  ¿Cómo hago para que mi módulo sea <em>instalable</em> desde GitHub?
+</h4>
+<p>Para que el módulo sea instalable desde GitHub solo tiene que:</p>
+<ul>
+  <li>Estar en un repo público de GitHub</li>
+  <li>Contener un <code>package.json</code> válido</li>
+</ul>
+<p>
+  Con el comando <code>npm install githubname/reponame</code> podemos instalar
+  directamente<br />desde GitHub. Ver
+  <a href="https://docs.npmjs.com/cli/install"
+    >docs oficiales de <code>npm install</code> acá</a
+  >.
+</p>
+<p>
+  Por ejemplo, el
+  <a href="https://github.com/Laboratoria/course-parser"
+    ><code>course-parser</code></a
+  ><br />que usamos para la currícula no está publicado en el registro público
+  de NPM,<br />así que lo instalamos directamente desde GitHub con el comando
+  <code>npm install Laboratoria/course-parser</code>.
+</p>
+<h3 id="sugerencias-de-implementaci-n">Sugerencias de implementación</h3>
+<p>
+  La implementación de este proyecto tiene varias partes: leer del sistema de<br />archivos,
+  recibir argumentos a través de la línea de comando, analizar texto,<br />hacer
+  consultas HTTP, ... y todas estas cosas pueden enfocarse de muchas formas,<br />tanto
+  usando librerías como implementando en VanillaJS.
+</p>
+<p>
+  Por poner un ejemplo, el <em>parseado</em> (análisis) del markdown para
+  extraer los<br />links podría plantearse de las siguientes maneras (todas
+  válidas):
+</p>
+<ul>
+  <li>
+    Usando un <em>módulo</em> como
+    <a href="https://github.com/markdown-it/markdown-it">markdown-it</a
+    >,<br />que nos devuelve un arreglo de <em>tokens</em> que podemos recorrer
+    para identificar<br />los links.
+  </li>
+  <li>
+    Siguiendo otro camino completamente, podríamos usar<br /><a
+      href="https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions"
+      >expresiones regulares (<code>RegExp</code>)</a
+    >.
+  </li>
+  <li>
+    También podríamos usar una combinación de varios <em>módulos</em> (podría
+    ser válido<br />transformar el markdown a HTML usando algo como
+    <a href="https://github.com/markedjs/marked">marked</a><br />y de ahí
+    extraer los link con una librería de DOM como
+    <a href="https://github.com/jsdom/jsdom">JSDOM</a><br />o
+    <a href="https://github.com/cheeriojs/cheerio">Cheerio</a> entre otras).
+  </li>
+  <li>
+    Usando un <em>custom renderer</em> de
+    <a href="https://github.com/markedjs/marked">marked</a><br />(<code
+      >new marked.Renderer()</code
+    >).
+  </li>
+</ul>
+<p>
+  No dudes en consultar a tus compañeras, coaches y/o el
+  <a href="http://community.laboratoria.la/c/js">foro de la comunidad</a
+  ><br />si tienes dudas existenciales con respecto a estas decisiones. No
+  existe una<br />&quot;única&quot; manera correcta :wink:
+</p>
+<h3 id="tutoriales-nodeschool-workshoppers">
+  Tutoriales / NodeSchool workshoppers
+</h3>
+<ul>
+  <li>
+    <a href="https://github.com/workshopper/learnyounode">learnyounode</a>
+  </li>
+  <li><a href="https://github.com/workshopper/how-to-npm">how-to-npm</a></li>
+  <li>
+    <a href="https://github.com/stevekane/promise-it-wont-hurt"
+      >promise-it-wont-hurt</a
+    >
+  </li>
+</ul>
+<h3 id="otros-recursos">Otros recursos</h3>
+<ul>
+  <li>
+    <a href="https://nodejs.org/es/about/"
+      >Acerca de Node.js - Documentación oficial</a
+    >
+  </li>
+  <li>
+    <a href="https://nodejs.org/api/fs.html"
+      >Node.js file system - Documentación oficial</a
+    >
+  </li>
+  <li>
+    <a href="https://nodejs.org/api/http.html#http_http_get_options_callback"
+      >Node.js http.get - Documentación oficial</a
+    >
+  </li>
+  <li>
+    <a href="https://es.wikipedia.org/wiki/Node.js">Node.js - Wikipedia</a>
+  </li>
+  <li>
+    <a
+      href="https://medium.freecodecamp.org/what-exactly-is-node-js-ae36e97449f5"
+      >What exactly is Node.js? - freeCodeCamp</a
+    >
+  </li>
+  <li>
+    <a href="https://www.drauta.com/que-es-nodejs-y-para-que-sirve"
+      >¿Qué es Node.js y para qué sirve? - drauta.com</a
+    >
+  </li>
+  <li>
+    <a href="https://www.youtube.com/watch?v=WgSc1nv_4Gw"
+      >¿Qué es Nodejs? Javascript en el Servidor - Fazt en YouTube</a
+    >
+  </li>
+  <li>
+    <a
+      href="https://www.ibm.com/developerworks/ssa/opensource/library/os-nodejs/index.html"
+      >¿Simplemente qué es Node.js? - IBM Developer Works, 2011</a
+    >
+  </li>
+  <li>
+    <a href="https://www.genbeta.com/desarrollo/node-js-y-npm">Node.js y npm</a>
+  </li>
+  <li>
+    <a
+      href="http://community.laboratoria.la/t/modulos-librerias-paquetes-frameworks-cual-es-la-diferencia/175"
+      >Módulos, librerías, paquetes, frameworks... ¿cuál es la diferencia?</a
+    >
+  </li>
+  <li>
+    <a href="https://carlosazaustre.es/manejando-la-asincronia-en-javascript"
+      >Asíncronía en js</a
+    >
+  </li>
+  <li><a href="https://docs.npmjs.com/getting-started/what-is-npm">NPM</a></li>
+  <li>
+    <a href="https://docs.npmjs.com/getting-started/publishing-npm-packages"
+      >Publicar packpage</a
+    >
+  </li>
+  <li>
+    <a href="https://docs.npmjs.com/getting-started/publishing-npm-packages"
+      >Crear módulos en Node.js</a
+    >
+  </li>
+  <li>
+    <a
+      href="https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback"
+      >Leer un archivo</a
+    >
+  </li>
+  <li>
+    <a href="https://nodejs.org/api/fs.html#fs_fs_readdir_path_options_callback"
+      >Leer un directorio</a
+    >
+  </li>
+  <li><a href="https://nodejs.org/api/path.html">Path</a></li>
+  <li>
+    <a
+      href="https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e"
+      >Linea de comando CLI</a
+    >
+  </li>
+</ul>
+<h2 id="9-checklist">9. Checklist</h2>
+<h3 id="general">General</h3>
+<ul>
+  <li>
+    [ ] Puede instalarse via
+    <code>npm install --global &lt;github-user&gt;/md-links</code>
+  </li>
+</ul>
+<h3 id="readme-md"><code>README.md</code></h3>
+<ul>
+  <li>[ ] Un board con el backlog para la implementación de la librería.</li>
+  <li>[ ] Documentación técnica de la librería.</li>
+  <li>[ ] Guía de uso e instalación de la librería</li>
+</ul>
+<h3 id="api-mdlinks-path-opts-">API <code>mdLinks(path, opts)</code></h3>
+<ul>
+  <li>[ ] El módulo exporta una función con la interfaz (API) esperada.</li>
+  <li>[ ] Implementa soporte para archivo individual</li>
+  <li>[ ] Implementa soporte para directorios</li>
+  <li>[ ] Implementa <code>options.validate</code></li>
+</ul>
+<h3 id="cli">CLI</h3>
+<ul>
+  <li>
+    [ ] Expone ejecutable <code>md-links</code> en el path (configurado en
+    <code>package.json</code>)
+  </li>
+  <li>[ ] Se ejecuta sin errores / output esperado</li>
+  <li>[ ] Implementa <code>--validate</code></li>
+  <li>[ ] Implementa <code>--stats</code></li>
+</ul>
+<h3 id="pruebas-tests">Pruebas / tests</h3>
+<ul>
+  <li>
+    [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions,<br />lines,
+    y branches.
+  </li>
+  <li>[ ] Pasa tests (y linters) (<code>npm test</code>).</li>
+</ul>

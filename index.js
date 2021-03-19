@@ -1,6 +1,8 @@
 const fs = require("fs");
 const process = require("process");
+const marked = require("marked");
 const path = require("path");
+const cheerio = require("cheerio");
 // Constante para obtener el directorio actual
 const directorio = process.cwd();
 // Constante con un objeto vacio, para llevarlo a los test
@@ -80,6 +82,18 @@ const readMd = (read) => {
   }
 };
 readMd(readFile);
+// Función para cambiar un .md a html
+const changeMdToHtml = (condicion) => marked(condicion);
+console.log(changeMdToHtml(readFile));
+// Función para extraer los links de un archivo html
+const fileHtml = "hola.html";
+
+const searchLinks = (condicion) => {
+  const readHtml = cheerio.load(fs.readFileSync(condicion, "utf8"));
+  const allLinks = readHtml("a").map((i, el) => readHtml(el).attr("href"));
+  return allLinks;
+};
+console.log(searchLinks(fileHtml));
 
 mdLinks.changeDirectory = changeDirectory;
 mdLinks.existFile = existFile;
