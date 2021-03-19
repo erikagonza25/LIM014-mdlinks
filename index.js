@@ -82,10 +82,10 @@ console.log(changeMdToHtml(readFile));
 // Función para extraer los links de un archivo html
 const searchLinks = (condicion) => {
   const readHtml = cheerio.load(fs.readFileSync(condicion, "utf8"));
-  const allLinks = readHtml("a").map((i, el) => readHtml(el).attr("href"));
+  const allLinks = [condicion];
+  readHtml("a").map((i, el) => (allLinks[i] = readHtml(el).attr("href")));
   return allLinks;
 };
-searchLinks(fileHtml);
 console.log(searchLinks(fileHtml));
 
 mdLinks.changeDirectory = changeDirectory;
@@ -94,4 +94,6 @@ mdLinks.typeRuta = typeRuta;
 mdLinks.directoryTour = directoryTour;
 mdLinks.typeFile = typeFile;
 mdLinks.readMd = readMd;
+mdLinks.changeMdToHtml = changeMdToHtml;
+mdLinks.searchLinks = searchLinks;
 module.exports = mdLinks;

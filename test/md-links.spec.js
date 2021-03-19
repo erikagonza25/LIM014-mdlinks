@@ -45,7 +45,6 @@ describe("directoryTour debería leer el directorio recursivamente", () => {
       "./prueba/erika.md",
       "./prueba/hola/hoy.md",
       "./prueba/hola/indexTwo.js",
-      "./prueba/hola.html",
       "./prueba/hola.js",
       "./prueba/styles.css",
     ]);
