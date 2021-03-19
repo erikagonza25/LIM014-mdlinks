@@ -35,8 +35,8 @@ const typeRuta = (test) => {
 typeRuta(test);
 console.log(typeRuta(test));
 // Función para recorre un diretorio y sus carpetas
-const directoryTour = (test) =>
-  fs
+const directoryTour = (test) => {
+  return fs
     .readdirSync(test)
     .map((file) => {
       const subpath = test + "/" + file;
@@ -45,6 +45,7 @@ const directoryTour = (test) =>
         : subpath;
     })
     .flat();
+};
 directoryTour(test);
 console.log(directoryTour(test));
 // Función para recorre un archivo y devolver solo los .md
