@@ -11,8 +11,6 @@ const mdLinks = {};
 const test = "./prueba";
 // Constante de prueba para la lectura de archivos
 const readFile = "README.md";
-//Constante de prueba para la lectura de archivos y obtener los links
-const fileHtml = "hola.html";
 
 // Función para cambiar una ruta relativa a absoluta
 const changeDirectory = (dir) => {
@@ -23,13 +21,11 @@ const changeDirectory = (dir) => {
   }
 };
 changeDirectory(directorio);
-console.log(changeDirectory(directorio));
 // Función para comprobar si el archivo o directorio existe
 const existFile = (rut) =>
   fs.existsSync(rut) ? rut : "El archivo o directorio no existe";
 
 existFile(test);
-console.log(existFile(test));
 // Función para saber si es un archivo o un directorio
 const typeRuta = (test) => {
   const typeRut = fs.statSync(test);
@@ -38,7 +34,6 @@ const typeRuta = (test) => {
     : "La ruta es un directorio: " + test;
 };
 typeRuta(test);
-console.log(typeRuta(test));
 // Función para recorre un diretorio y sus carpetas
 const directoryTour = (test) => {
   return fs
@@ -52,7 +47,6 @@ const directoryTour = (test) => {
     .flat();
 };
 directoryTour(test);
-console.log(directoryTour(test));
 // Función para recorre un archivo y devolver solo los .md
 const typeFile = (test) => {
   const fileType = fs
@@ -65,7 +59,6 @@ const typeFile = (test) => {
   return fileType;
 };
 typeFile(test);
-console.log(typeFile(test));
 // Función para leer un archivo .md
 const readMd = (read) => {
   try {
@@ -76,18 +69,28 @@ const readMd = (read) => {
   }
 };
 readMd(readFile);
-// Función para cambiar un .md a html
-const changeMdToHtml = (condicion) => marked(condicion);
-console.log(changeMdToHtml(readFile));
 // Función para extraer los links de un archivo html
-const searchLinks = (condicion) => {
-  const readHtml = cheerio.load(fs.readFileSync(condicion, "utf8"));
+const searchLinks = (condicion, path) => {
+  const readHtml = cheerio.load(condicion);
   const allLinks = [condicion];
-  readHtml("a").map((i, el) => (allLinks[i] = readHtml(el).attr("href")));
+  readHtml("a").map(
+    (i, el) =>
+      (allLinks[i] = {
+        href: readHtml(el).attr("href"),
+        text: readHtml(el).text(),
+        file: path,
+      })
+  );
   return allLinks;
 };
-searchLinks(fileHtml);
-console.log(searchLinks(fileHtml));
+// Función para cambiar un .md a html
+const changeMdToHtml = (condicion) => {
+  let prueba = marked(fs.readFileSync(condicion, "utf8"));
+  return searchLinks(prueba, condicion);
+};
+
+console.log(changeMdToHtml(readFile));
+changeMdToHtml(readFile);
 
 mdLinks.changeDirectory = changeDirectory;
 mdLinks.existFile = existFile;
