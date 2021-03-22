@@ -1,6 +1,6 @@
 const mdLinks = require("../index.js");
 
-describe("describe la función checkFileExists", () => {
+describe("describe la función changeDirectory cambia una ruta relativa a absoluta", () => {
   it("is a function", () => {
     expect(typeof mdLinks.changeDirectory).toBe("function");
   });
@@ -62,3 +62,26 @@ describe("readMd debería recorrer los archivos y mostrarme solo los .md", () =>
     );
   });
 });
+/*describe("", () => {
+  test("", () => {
+    expect(mdLinks.changeMdToHtml("pruebaREADME.md")).toEqual(
+      "<h1 id='prueba-para-test-changemdtohtml'>Prueba para test changeMdToHtml</h1>"
+    );
+  });
+});
+describe("función searchLinks lee un archivo y obtiene los links", () => {
+  test("lee el archivo y obten los links", () => {
+    expect(mdLinks.searchLinks("pruebaREADME.md")).toEqual([]);
+  });
+}); */
+/* TEST PARA CAMBIAR UN ARCHIVO DE .MD A HTML*/
+/* describe("mdToHtml debería ser una función", () => {
+  it("es una función", () => {
+    expect(typeof mdLinks.mdToHtml).toBe("function");
+  });
+  test("debería cambiar un archivo con extensión .md a .html", () => {
+    expect(
+      mdLinks.mdToHtml().toEqual(`<h1 id="markdown-links">Markdown Links</h1>`)
+    );
+  });
+});  */
