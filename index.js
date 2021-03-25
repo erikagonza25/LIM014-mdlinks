@@ -3,6 +3,7 @@ const process = require("process");
 const path = require("path");
 const marked = require("marked");
 const cheerio = require("cheerio");
+const fetch = require("node-fetch");
 // Constante para obtener el directorio actual
 const directorio = process.cwd();
 // Constante con un objeto vacio, para llevarlo a los test
@@ -11,7 +12,9 @@ const mdLinks = {};
 const test = "./prueba";
 // Constante de prueba para la lectura de archivos
 const readFile = "README.md";
-
+// Constante de prueba para la validación de links
+const validFile =
+  "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e";
 // Función para cambiar una ruta relativa a absoluta
 const changeDirectory = (dir) => {
   try {
@@ -70,14 +73,14 @@ const readMd = (read) => {
 };
 readMd(readFile);
 // Función para extraer los links de un archivo html
-const searchLinks = (condicion, path) => {
-  const readHtml = cheerio.load(condicion);
-  const allLinks = [condicion];
+const searchLinks = (HTML, path) => {
+  const readHtml = cheerio.load(HTML, null, false);
+  const allLinks = [HTML];
   readHtml("a").map(
-    (i, el) =>
-      (allLinks[i] = {
-        href: readHtml(el).attr("href"),
-        text: readHtml(el).text(),
+    (el, i) =>
+      (allLinks[el] = {
+        href: readHtml(i).attr("href"),
+        text: readHtml(i).text(),
         file: path,
       })
   );
@@ -85,12 +88,37 @@ const searchLinks = (condicion, path) => {
 };
 // Función para cambiar un .md a html
 const changeMdToHtml = (condicion) => {
-  let prueba = marked(fs.readFileSync(condicion, "utf8"));
-  return searchLinks(prueba, condicion);
+  let readFile = marked(fs.readFileSync(condicion, "utf8"));
+  return searchLinks(readFile, condicion);
 };
+// Función para validar los links
+const validateLinks = (link) => {
+  return fetch(link, { validate: true })
+    .then(function (response) {
+      return {
+        href: link,
+        ok: response.statusText,
+        status: response.status,
+      };
+    })
+    .catch(function (err) {
+      console.log("Hola" + err);
+    });
+};
+let linksValidate = validateLinks(validFile);
 
-console.log(changeMdToHtml(readFile));
-changeMdToHtml(readFile);
+linksValidate.then(function (result) {
+  return result;
+});
+changeMdToHtml(readFile).map((el) => {
+  let erika = validateLinks(el.href);
+
+  erika.then(function (result) {
+    const marcasFinal = { ...el, ...result };
+    console.log(marcasFinal);
+    return marcasFinal;
+  });
+});
 
 mdLinks.changeDirectory = changeDirectory;
 mdLinks.existFile = existFile;
