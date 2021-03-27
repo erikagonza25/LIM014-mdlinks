@@ -27,41 +27,61 @@ describe("existFile debería mostrar si el archivo existe o no", () => {
   });
 });
 describe("typeRuta debería indicar si es un directorio o un archivo", () => {
-  test("test que comprueba si es un directorio", () => {
+  it("test que comprueba si es un directorio", () => {
     expect(mdLinks.typeRuta("./prueba")).toEqual(
       "La ruta es un directorio: ./prueba"
     );
   });
 
-  test("test que comprueba si es un archivo", () => {
+  it("test que comprueba si es un archivo", () => {
     expect(mdLinks.typeRuta("index.js")).toEqual(
       "La ruta es un archivo: index.js"
     );
   });
 });
-describe("directoryTour debería leer el directorio recursivamente", () => {
-  test("test para mostrar los archivos dentro de un directorio", () => {
+describe("directoryTour debería leer el directorio recursivamente y retornar solos los .md", () => {
+  it("test para mostrar los archivos dentro de un directorio", () => {
     expect(mdLinks.directoryTour("./prueba")).toEqual([
-      "./prueba/erika.md",
-      "./prueba/hola/hoy.md",
-      "./prueba/hola/indexTwo.js",
-      "./prueba/hola.js",
-      "./prueba/styles.css",
+      "prueba\\erika.md",
+      "prueba\\hola\\hoy.md",
     ]);
   });
 });
-describe("typeFile debería recorrer los archivos y mostrarme solo los .md", () => {
-  test("al recibir un directorio busca solo los archivos .md", () => {
-    expect(mdLinks.typeFile("./prueba")).toEqual(["prueba\\erika.md"]);
+describe("validateLinks debería validar el enlace", () => {
+  test("Deberia retornar un objeto con el href, ok, status", () => {
+    return mdLinks
+      .validateLinks(
+        "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e"
+      )
+      .then((res) => {
+        expect(res).toEqual({
+          href:
+            "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e",
+          ok: "OK",
+          status: 200,
+        });
+      });
   });
 });
-describe("readMd debería recorrer los archivos y mostrarme solo los .md", () => {
-  test("error al leer un archivo", () => {
+/*describe("", () => {
+  it("", () => {
+    expect(mdLinks.changeMdToHtml("prueba.md")).toEqual(
+      '[{"file": "prueba.md", "href":"https://nodejs.org/es/about/", "text": "Acerca de Node.js - Documentación oficial"}]'
+    );
+  });
+}); */
+/*describe("readMd debería recorrer los archivos y mostrarme solo los .md", () => {
+  it("error al leer un archivo", () => {
     expect(mdLinks.readMd()).toEqual(
       'TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined'
     );
   });
-});
+  it("error al leer un archivo", () => {
+    expect(mdLinks.readMd()).toEqual(
+      'TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined'
+    );
+  });
+}); */
 /*describe("", () => {
   test("", () => {
     expect(mdLinks.changeMdToHtml("pruebaREADME.md")).toEqual(
@@ -84,4 +104,9 @@ describe("función searchLinks lee un archivo y obtiene los links", () => {
       mdLinks.mdToHtml().toEqual(`<h1 id="markdown-links">Markdown Links</h1>`)
     );
   });
-});  */
+});
+describe("typeFile debería recorrer los archivos y mostrarme solo los .md", () => {
+  it("Al recibir un directorio busca solo los archivos .md", () => {
+    expect(mdLinks.typeFile("./prueba")).toEqual(["prueba\\erika.md"]);
+  });
+}); */
