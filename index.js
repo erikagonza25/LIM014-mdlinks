@@ -13,67 +13,44 @@ const test = "./prueba";
 // Constante de prueba para la lectura de archivos
 const readFile = "README.md";
 // Constante de prueba para la validación de links
-const validFile =
-  "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e";
 // Función para cambiar una ruta relativa a absoluta
-const changeDirectory = (dir) => {
+mdLinks.changeDirectory = (dir) => {
   try {
     return path.resolve(dir);
   } catch (err) {
     return "Se produjo un error mientras se cambiaba de directorio " + err;
   }
 };
-changeDirectory(directorio);
 // Función para comprobar si el archivo o directorio existe
-const existFile = (rut) =>
+mdLinks.existFile = (rut) =>
   fs.existsSync(rut) ? rut : "El archivo o directorio no existe";
 
-existFile(test);
 // Función para saber si es un archivo o un directorio
-const typeRuta = (test) => {
+mdLinks.typeRuta = (test) => {
   const typeRut = fs.statSync(test);
   return typeRut.isFile() === true
     ? "La ruta es un archivo: " + test
     : "La ruta es un directorio: " + test;
 };
-typeRuta(test);
-// Función para recorre un diretorio y sus carpetas
-const directoryTour = (test) => {
-  return fs
-    .readdirSync(test)
-    .map((file) => {
-      const subpath = test + "/" + file;
-      return fs.lstatSync(subpath).isDirectory()
-        ? directoryTour(subpath)
-        : subpath;
-    })
-    .flat();
-};
-directoryTour(test);
-// Función para recorre un archivo y devolver solo los .md
-const typeFile = (test) => {
-  const fileType = fs
-    .readdirSync(test)
-    .map((file) => path.join(test, file))
-    .filter((path) => fs.statSync(path).isFile())
-    .filter((file) => {
-      return path.extname(file) == ".md" ? file : false;
+//Función para recorrer un directorio y devolver solos los .md
+mdLinks.directoryTour = (md) => {
+  let containMd = [];
+  if (fs.statSync(md).isFile()) {
+    if (path.extname(md) === ".md") {
+      containMd.push(md);
+    }
+  } else {
+    fs.readdirSync(md).map((directory) => {
+      containMd = containMd.concat(
+        mdLinks.directoryTour(path.join(md, directory))
+      );
     });
-  return fileType;
-};
-typeFile(test);
-// Función para leer un archivo .md
-const readMd = (read) => {
-  try {
-    const data = fs.readFileSync(read, "utf8");
-    return data;
-  } catch (err) {
-    return "" + err;
   }
+  return containMd;
 };
-readMd(readFile);
+console.table(mdLinks.directoryTour(test));
 // Función para extraer los links de un archivo html
-const searchLinks = (HTML, path) => {
+mdLinks.searchLinks = (HTML, path) => {
   const readHtml = cheerio.load(HTML, null, false);
   const allLinks = [HTML];
   readHtml("a").map(
@@ -87,12 +64,12 @@ const searchLinks = (HTML, path) => {
   return allLinks;
 };
 // Función para cambiar un .md a html
-const changeMdToHtml = (condicion) => {
+mdLinks.changeMdToHtml = (condicion) => {
   let readFile = marked(fs.readFileSync(condicion, "utf8"));
-  return searchLinks(readFile, condicion);
+  return mdLinks.searchLinks(readFile, condicion);
 };
 // Función para validar los links
-const validateLinks = (link) => {
+mdLinks.validateLinks = (link) => {
   return fetch(link, { validate: true })
     .then(function (response) {
       return {
@@ -102,30 +79,17 @@ const validateLinks = (link) => {
       };
     })
     .catch(function (err) {
-      console.log("Hola" + err);
+      return err;
     });
 };
-let linksValidate = validateLinks(validFile);
+// Función en la cual se une changeMdToHtml y validateLinks para retorna href, file, text, status , ok
+mdLinks.changeMdToHtml(readFile).map((el) => {
+  let joinOfFunctions = mdLinks.validateLinks(el.href);
 
-linksValidate.then(function (result) {
-  return result;
-});
-changeMdToHtml(readFile).map((el) => {
-  let erika = validateLinks(el.href);
-
-  erika.then(function (result) {
+  joinOfFunctions.then(function (result) {
     const marcasFinal = { ...el, ...result };
-    console.log(marcasFinal);
     return marcasFinal;
   });
 });
 
-mdLinks.changeDirectory = changeDirectory;
-mdLinks.existFile = existFile;
-mdLinks.typeRuta = typeRuta;
-mdLinks.directoryTour = directoryTour;
-mdLinks.typeFile = typeFile;
-mdLinks.readMd = readMd;
-mdLinks.changeMdToHtml = changeMdToHtml;
-mdLinks.searchLinks = searchLinks;
 module.exports = mdLinks;
