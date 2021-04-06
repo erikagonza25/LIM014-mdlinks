@@ -1,112 +1,104 @@
-const mdLinks = require("../index.js");
+const {
+  existRut,
+  searchLinks,
+  validateLinks,
+  statsLinks,
+} = require("../src/md-links.js");
+const { mdLinks } = require("../src/index.js");
 
-describe("describe la función changeDirectory cambia una ruta relativa a absoluta", () => {
-  it("is a function", () => {
-    expect(typeof mdLinks.changeDirectory).toBe("function");
-  });
-
-  it("error al cambiar de ruta", () => {
-    expect(mdLinks.changeDirectory()).toBe(
-      'Se produjo un error mientras se cambiaba de directorio TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined'
-    );
-  });
-  it("cambia la ruta de relativa a absoluta", () => {
-    expect(mdLinks.changeDirectory("wwwroot")).toEqual(
-      "C:\\Users\\ERIKA\\LIM014-mdlinks\\wwwroot"
-    );
-  });
-});
-describe("existFile debería mostrar si el archivo existe o no", () => {
-  it("Devolver el mismo archivo si existe", () => {
-    expect(mdLinks.existFile("README.md")).toEqual("README.md");
-  });
-  it("Devolver un mensaje si el archivo no existe", () => {
-    expect(mdLinks.existFile("./erika")).toEqual(
-      "El archivo o directorio no existe"
-    );
-  });
-});
-describe("typeRuta debería indicar si es un directorio o un archivo", () => {
-  it("test que comprueba si es un directorio", () => {
-    expect(mdLinks.typeRuta("./prueba")).toEqual(
-      "La ruta es un directorio: ./prueba"
+describe("existRut deberia determinar si existe la ruta y cambiarla a absoluta", () => {
+  it("deberia retornar la ruta existente y convertirla a absoluta", () => {
+    expect(existRut("./prueba")).toEqual(
+      "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba"
     );
   });
 
-  it("test que comprueba si es un archivo", () => {
-    expect(mdLinks.typeRuta("index.js")).toEqual(
-      "La ruta es un archivo: index.js"
-    );
-  });
-});
-describe("directoryTour debería leer el directorio recursivamente y retornar solos los .md", () => {
-  it("test para mostrar los archivos dentro de un directorio", () => {
-    expect(mdLinks.directoryTour("./prueba")).toEqual([
-      "prueba\\erika.md",
-      "prueba\\hola\\hoy.md",
-    ]);
+  it("deberia retornar un mensaje si se pasa una ruta no existente", () => {
+    expect(existRut("./pruebaT")).toEqual("La ruta no existe");
   });
 });
 describe("validateLinks debería validar el enlace", () => {
-  test("Deberia retornar un objeto con el href, ok, status", () => {
-    return mdLinks
-      .validateLinks(
-        "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e"
-      )
-      .then((res) => {
-        expect(res).toEqual({
-          href:
-            "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e",
-          ok: "OK",
-          status: 200,
-        });
+  it("Deberia retornar un objeto con el href, ok, status", () => {
+    return validateLinks(
+      "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e"
+    ).then((res) => {
+      expect(res).toEqual({
+        href:
+          "https://medium.com/netscape/a-guide-to-create-a-nodejs-command-line-package-c2166ad0452e",
+        status: 200,
+        statusText: "OK",
       });
+    });
+  });
+  it("Deberia retornar un objeto con el ok, status = Fail", () => {
+    return validateLinks(
+      "#5-criterios-de-aceptación-mínimos-del-proyecto"
+    ).then((res) => {
+      expect(res).toEqual({
+        status: 500,
+        statusText: "FAIL",
+      });
+    });
   });
 });
-/*describe("", () => {
-  it("", () => {
-    expect(mdLinks.changeMdToHtml("prueba.md")).toEqual(
-      '[{"file": "prueba.md", "href":"https://nodejs.org/es/about/", "text": "Acerca de Node.js - Documentación oficial"}]'
-    );
-  });
-}); */
-/*describe("readMd debería recorrer los archivos y mostrarme solo los .md", () => {
-  it("error al leer un archivo", () => {
-    expect(mdLinks.readMd()).toEqual(
-      'TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined'
-    );
-  });
-  it("error al leer un archivo", () => {
-    expect(mdLinks.readMd()).toEqual(
-      'TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined'
-    );
-  });
-}); */
-/*describe("", () => {
-  test("", () => {
-    expect(mdLinks.changeMdToHtml("pruebaREADME.md")).toEqual(
-      "<h1 id='prueba-para-test-changemdtohtml'>Prueba para test changeMdToHtml</h1>"
-    );
+describe("searchLinks debería retornar los links de los enlace y convertir un archivo a html", () => {
+  it("debería retornar los links de los enlace ", () => {
+    expect(searchLinks("./prueba/prueba.md")).toEqual([
+      {
+        file: "./prueba/prueba.md",
+        href: "https://nodejs.org/es/about/",
+        text: "Acerca de Node.js - Documentación oficial",
+      },
+    ]);
   });
 });
-describe("función searchLinks lee un archivo y obtiene los links", () => {
-  test("lee el archivo y obten los links", () => {
-    expect(mdLinks.searchLinks("pruebaREADME.md")).toEqual([]);
-  });
-}); */
-/* TEST PARA CAMBIAR UN ARCHIVO DE .MD A HTML*/
-/* describe("mdToHtml debería ser una función", () => {
+describe("mdLinks debería retornar un array de objetos con las propiedades: file, href y text ", () => {
   it("es una función", () => {
-    expect(typeof mdLinks.mdToHtml).toBe("function");
+    expect(typeof mdLinks).toBe("function");
   });
-  test("debería cambiar un archivo con extensión .md a .html", () => {
-    expect(
-      mdLinks.mdToHtml().toEqual(`<h1 id="markdown-links">Markdown Links</h1>`)
-    );
+  it("debería retornar un array de objetos", () => {
+    return mdLinks("../LIM014-mdlinks/prueba/prueba.md").then((result) => {
+      expect(result).toEqual([
+        {
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          href: "https://nodejs.org/es/about/",
+          text: "Acerca de Node.js - Documentación oficial",
+        },
+      ]);
+    });
   });
 });
-describe("typeFile debería recorrer los archivos y mostrarme solo los .md", () => {
-  it("Al recibir un directorio busca solo los archivos .md", () => {
-    expect(mdLinks.typeFile("./prueba")).toEqual(["prueba\\erika.md"]);
+it("debería retornar un array de objetos ok, status ", () => {
+  return mdLinks("../LIM014-mdlinks/prueba/prueba.md", {
+    validate: true,
+  }).then((result) => {
+    expect(result).toEqual([
+      {
+        file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+        href: "https://nodejs.org/es/about/",
+        status: 200,
+        statusText: "OK",
+        text: "Acerca de Node.js - Documentación oficial",
+      },
+    ]);
   });
-}); */
+});
+describe("statsLinks función valida los Total, Unique y Broken", () => {
+  it("deberia retornar total, unique, broken", () => {
+    expect(
+      statsLinks([
+        {
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          href: "https://nodejs.org/es/about/",
+          status: 200,
+          statusText: "OK",
+          text: "Acerca de Node.js - Documentación oficial",
+        },
+      ])
+    ).toEqual({
+      Total: 1,
+      Unique: 1,
+      Broken: 0,
+    });
+  });
+});
