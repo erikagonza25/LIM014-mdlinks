@@ -24,7 +24,6 @@ const readDirectory = (rut) => {
 
   return filelist.flat();
 };
-console.log(readDirectory("./prueba"));
 // Función para cambiar un archivo a html y extraer los links de un archivo html
 const searchLinks = (HTML) => {
   const readFile = marked(fs.readFileSync(HTML, "utf8"));
@@ -78,20 +77,19 @@ const statsLinks = (links) => {
     allStats.push(link);
   });
   stats.Total = allStats.length;
-  stats.Unique = unique(allStats).length;
+  stats.Unique = unique(allStats);
   stats.Broken = broken(allStats).length;
   return stats;
 };
 const unique = (linkstats) => {
-  return linkstats.filter((href, i, linkstats) => {
-    return i == linkstats.indexOf(href);
-  });
+  const mySet = new Set();
+  linkstats.forEach((ele) => mySet.add(ele.href));
+  return mySet.size;
 };
 const broken = (linkstats) => {
   return linkstats.filter((href) => href.statusText === "FAIL");
 };
 
-Promise.all(joinFunction("./hoy.md")).then((links) => {});
 module.exports = {
   existRut,
   directoryOrFail,
