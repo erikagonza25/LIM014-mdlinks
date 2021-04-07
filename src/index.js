@@ -5,6 +5,7 @@ const {
   readDirectory,
   searchLinks,
   joinFunction,
+  statsLinks,
 } = require("../src/md-links.js");
 // Función md-links que une todas las demas
 const mdLinks = (paths, option) => {
@@ -17,9 +18,17 @@ const mdLinks = (paths, option) => {
       containFile = readDirectory(paths);
     }
     containFile.map((file) => {
-      if (option && option.validate) {
+      if (!option.stats && option.validate) {
         Promise.all(joinFunction(file)).then((values) => {
           resolve(values);
+        });
+      } else if (!option.validate && option.stats) {
+        Promise.all(joinFunction(file)).then((values) => {
+          resolve(statsLinks(values));
+        });
+      } else if (option.validate && option.stats) {
+        Promise.all(joinFunction(file)).then((values) => {
+          resolve(statsLinks(values));
         });
       } else {
         resolve(searchLinks(file));
@@ -27,7 +36,8 @@ const mdLinks = (paths, option) => {
     });
   });
 };
-mdLinks("./prueba", { validate: true })
+/*
+mdLinks("hello.md", { stats: true })
   .then((result) => console.log(result))
-  .catch(console.error);
+  .catch(console.error); */
 module.exports = { mdLinks };
