@@ -3,6 +3,7 @@ const {
   searchLinks,
   validateLinks,
   statsLinks,
+  readDirectory,
 } = require("../src/md-links.js");
 const { mdLinks } = require("../src/index.js");
 
@@ -15,6 +16,14 @@ describe("existRut deberia determinar si existe la ruta y cambiarla a absoluta",
 
   it("deberia retornar un mensaje si se pasa una ruta no existente", () => {
     expect(existRut("./pruebaT")).toEqual("La ruta no existe");
+  });
+});
+describe("readDirectory deberia leer un directorio recursivamente", () => {
+  it("deberia leer el directorio y sus subdirectorios, filtra y devuelve solo los .md", () => {
+    expect(readDirectory("./prueba")).toEqual([
+      "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\hola\\hoy.md",
+      "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+    ]);
   });
 });
 describe("validateLinks debería validar el enlace", () => {
