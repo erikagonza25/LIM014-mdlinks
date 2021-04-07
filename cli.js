@@ -101,7 +101,6 @@ program
         console.log(chalk.hex("#FFCAD4")(messaCat));
       } else if (options.validate && options.stats) {
         const link = statsLinks(arrayLinks);
-        console.log(link);
         console.log(
           chalk.hex("#7D53DE").bold("Total:") +
             " " +
