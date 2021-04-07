@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const chalk = require("chalk");
 const { mdLinks } = require("./src/index.js");
+const { statsLinks, getMd } = require("./src/md-links.js");
 const { message, messageCat, messaCat } = require("./image/imagenes.js");
 const figlet = require("figlet");
 const program = require("commander");
@@ -46,7 +47,7 @@ program
 
     mdLinks(path, options).then((arrayLinks) => {
       if (!options.validate && !options.stats) {
-        arrayLinks.forEach((link) => {
+        arrayLinks.map((link) => {
           console.log(
             chalk.hex("#7D53DE").bold(link.href) +
               "  " +
@@ -86,34 +87,34 @@ program
         });
         console.log(chalk.hex("#FFCAD4")(messageCat));
       } else if (!options.validate && options.stats) {
-        [arrayLinks].forEach((link) => {
-          console.log(
-            chalk.hex("#7D53DE").bold("Total:") +
-              " " +
-              chalk.hex("#DAFFEF").dim(link.Total) +
-              "\n" +
-              chalk.hex("#7D53DE").bold("Unique:") +
-              " " +
-              chalk.hex("#DAFFEF").dim(link.Unique)
-          );
-        });
+        const link = statsLinks(arrayLinks);
+        console.log(
+          chalk.hex("#7D53DE").bold("Total:") +
+            " " +
+            chalk.hex("#DAFFEF").dim(link.Total) +
+            "\n" +
+            chalk.hex("#7D53DE").bold("Unique:") +
+            " " +
+            chalk.hex("#DAFFEF").dim(link.Unique)
+        );
+
         console.log(chalk.hex("#FFCAD4")(messaCat));
       } else if (options.validate && options.stats) {
-        [arrayLinks].forEach((link) => {
-          console.log(
-            chalk.hex("#7D53DE").bold("Total:") +
-              " " +
-              chalk.hex("#DAFFEF").dim(link.Total) +
-              "\n" +
-              chalk.hex("#7D53DE").bold("Unique:") +
-              " " +
-              chalk.hex("#DAFFEF").dim(link.Unique) +
-              "\n" +
-              chalk.hex("#7D53DE").bold("Broken:") +
-              " " +
-              chalk.hex("#DAFFEF").dim(link.Broken)
-          );
-        });
+        const link = statsLinks(arrayLinks);
+        console.log(link);
+        console.log(
+          chalk.hex("#7D53DE").bold("Total:") +
+            " " +
+            chalk.hex("#DAFFEF").dim(link.Total) +
+            "\n" +
+            chalk.hex("#7D53DE").bold("Unique:") +
+            " " +
+            chalk.hex("#DAFFEF").dim(link.Unique) +
+            "\n" +
+            chalk.hex("#7D53DE").bold("Broken:") +
+            " " +
+            chalk.hex("#DAFFEF").dim(link.Broken)
+        );
         console.log(chalk.hex("#FFCAD4")(messaCat));
       }
     });
