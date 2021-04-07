@@ -49,6 +49,16 @@ describe("validateLinks debería validar el enlace", () => {
       });
     });
   });
+  it("Deberia retornar el mensaje del catch", () => {
+    return validateLinks(
+      "https://raw.githubusercontent.com/erikagonza25/LIM014-mdlinks/main/img/links_404"
+    ).then((res) => {
+      expect(res).toEqual({
+        status: 404,
+        statusText: "FAIL",
+      });
+    });
+  });
 });
 describe("searchLinks debería retornar los links de los enlace y convertir un archivo a html", () => {
   it("debería retornar los links de los enlace ", () => {
@@ -66,9 +76,7 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
     expect(typeof mdLinks).toBe("function");
   });
   it("debería retornar un array de objetos", () => {
-    return mdLinks("../LIM014-mdlinks/prueba/prueba.md", {
-      stats: false,
-    }).then((result) => {
+    return mdLinks("../LIM014-mdlinks/prueba/prueba.md").then((result) => {
       expect(result).toEqual([
         {
           file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
@@ -93,28 +101,45 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
-  it("debería retornar total, unique y broken al colocarle stats true", () => {
-    return mdLinks("hello.md", {
-      stats: true,
-    }).then((result) => {
-      expect(result).toEqual({
-        Total: 5,
-        Unique: 4,
-        Broken: 1,
-      });
-    });
-  });
-  it("debería retornar total, unique y broken al colocarle stats true y validate true", () => {
-    return mdLinks("hello.md", {
-      stats: true,
+  it("debería retornar un array de objetos ok, status ", () => {
+    return mdLinks("../LIM014-mdlinks/prueba", {
       validate: true,
     }).then((result) => {
-      expect(result).toEqual({
-        Total: 5,
-        Unique: 4,
-        Broken: 1,
-      });
+      expect(result).toEqual([
+        {
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\hola\\hoy.md",
+          href: "https://nodejs.org/es/about/",
+          status: 200,
+          statusText: "OK",
+          text: "Acerca de Node.js - Documentación oficial",
+        },
+        {
+          href: "https://nodejs.org/es/about/",
+          text: "Acerca de Node.js - Documentación oficial",
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          statusText: "OK",
+          status: 200,
+        },
+      ]);
     });
+  });
+  it("debería retornar un array de objetos ok, status ", () => {
+    return mdLinks("../LIM014-mdlinks/prueba", { stats: false }).then(
+      (result) => {
+        expect(result).toEqual([
+          {
+            file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\hola\\hoy.md",
+            href: "https://nodejs.org/es/about/",
+            text: "Acerca de Node.js - Documentación oficial",
+          },
+          {
+            href: "https://nodejs.org/es/about/",
+            text: "Acerca de Node.js - Documentación oficial",
+            file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          },
+        ]);
+      }
+    );
   });
 });
 describe("statsLinks función valida los Total, Unique y Broken", () => {
