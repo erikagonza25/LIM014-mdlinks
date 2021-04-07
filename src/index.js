@@ -5,7 +5,6 @@ const {
   readDirectory,
   searchLinks,
   joinFunction,
-  statsLinks,
 } = require("../src/md-links.js");
 // Función md-links que une todas las demas
 const mdLinks = (paths, option) => {
@@ -14,30 +13,32 @@ const mdLinks = (paths, option) => {
     let fileDirectory = directoryOrFail(paths);
     if (fileDirectory.isFile(paths)) {
       getMd(paths) ? containFile.push(existRut(paths)) : "Error";
+      containFile.map((file) => {
+        if (option && option.validate) {
+          Promise.all(joinFunction(file)).then((values) => {
+            resolve(values);
+          });
+        } else {
+          resolve(searchLinks(file));
+        }
+      });
     } else {
       containFile = readDirectory(paths);
+      const listAll = containFile.reduce((acumulador, file) => {
+        if (option.stats || option.validate) {
+          return acumulador.concat(joinFunction(file));
+        } else {
+          return acumulador.concat(searchLinks(file));
+        }
+      }, []);
+      Promise.all(listAll).then((values) => {
+        resolve(values);
+      });
     }
-    containFile.map((file) => {
-      if (!option.stats && option.validate) {
-        Promise.all(joinFunction(file)).then((values) => {
-          resolve(values);
-        });
-      } else if (!option.validate && option.stats) {
-        Promise.all(joinFunction(file)).then((values) => {
-          resolve(statsLinks(values));
-        });
-      } else if (option.validate && option.stats) {
-        Promise.all(joinFunction(file)).then((values) => {
-          resolve(statsLinks(values));
-        });
-      } else {
-        resolve(searchLinks(file));
-      }
-    });
   });
 };
-/*
-mdLinks("hello.md", { stats: true })
+
+/*mdLinks("./prueba", { validate: true })
   .then((result) => console.log(result))
-  .catch(console.error); */
+  .catch(console.error);*/
 module.exports = { mdLinks };
