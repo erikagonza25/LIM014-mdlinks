@@ -16,9 +16,11 @@ const readDirectory = (rut) => {
   fs.readdirSync(rut).map(function (file) {
     const subpath = rut + "/" + file;
     if (fs.statSync(subpath).isDirectory()) {
-      return filelist.push(readDirectory(path.resolve(subpath)));
+      return filelist.push(
+        readDirectory(path.normalize(path.resolve(subpath)))
+      );
     } else if (path.extname(subpath) === ".md") {
-      return filelist.push(path.resolve(rut + "/" + file));
+      return filelist.push(path.normalize(path.resolve(rut + "/" + file)));
     }
   });
 
@@ -89,7 +91,6 @@ const unique = (linkstats) => {
 const broken = (linkstats) => {
   return linkstats.filter((href) => href.statusText === "FAIL");
 };
-
 module.exports = {
   existRut,
   directoryOrFail,
