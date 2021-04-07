@@ -66,7 +66,9 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
     expect(typeof mdLinks).toBe("function");
   });
   it("debería retornar un array de objetos", () => {
-    return mdLinks("../LIM014-mdlinks/prueba/prueba.md").then((result) => {
+    return mdLinks("../LIM014-mdlinks/prueba/prueba.md", {
+      stats: false,
+    }).then((result) => {
       expect(result).toEqual([
         {
           file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
@@ -76,20 +78,43 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
-});
-it("debería retornar un array de objetos ok, status ", () => {
-  return mdLinks("../LIM014-mdlinks/prueba/prueba.md", {
-    validate: true,
-  }).then((result) => {
-    expect(result).toEqual([
-      {
-        file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
-        href: "https://nodejs.org/es/about/",
-        status: 200,
-        statusText: "OK",
-        text: "Acerca de Node.js - Documentación oficial",
-      },
-    ]);
+  it("debería retornar un array de objetos ok, status ", () => {
+    return mdLinks("../LIM014-mdlinks/prueba/prueba.md", {
+      validate: true,
+    }).then((result) => {
+      expect(result).toEqual([
+        {
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          href: "https://nodejs.org/es/about/",
+          status: 200,
+          statusText: "OK",
+          text: "Acerca de Node.js - Documentación oficial",
+        },
+      ]);
+    });
+  });
+  it("debería retornar total, unique y broken al colocarle stats true", () => {
+    return mdLinks("hello.md", {
+      stats: true,
+    }).then((result) => {
+      expect(result).toEqual({
+        Total: 5,
+        Unique: 4,
+        Broken: 1,
+      });
+    });
+  });
+  it("debería retornar total, unique y broken al colocarle stats true y validate true", () => {
+    return mdLinks("hello.md", {
+      stats: true,
+      validate: true,
+    }).then((result) => {
+      expect(result).toEqual({
+        Total: 5,
+        Unique: 4,
+        Broken: 1,
+      });
+    });
   });
 });
 describe("statsLinks función valida los Total, Unique y Broken", () => {
