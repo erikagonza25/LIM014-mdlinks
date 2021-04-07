@@ -9,20 +9,20 @@ const { mdLinks } = require("../src/index.js");
 
 describe("existRut deberia determinar si existe la ruta y cambiarla a absoluta", () => {
   it("deberia retornar la ruta existente y convertirla a absoluta", () => {
-    expect(existRut("./prueba")).toEqual(
-      "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba"
+    expect(existRut(__dirname + "/prueba")).toEqual(
+      "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba"
     );
   });
 
   it("deberia retornar un mensaje si se pasa una ruta no existente", () => {
-    expect(existRut("./pruebaT")).toEqual("La ruta no existe");
+    expect(existRut(__dirname + "./pruebaT")).toEqual("La ruta no existe");
   });
 });
 describe("readDirectory deberia leer un directorio recursivamente", () => {
   it("deberia leer el directorio y sus subdirectorios, filtra y devuelve solo los .md", () => {
-    expect(readDirectory("./prueba")).toEqual([
-      "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\hola\\hoy.md",
-      "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+    expect(readDirectory(__dirname + "/prueba")).toEqual([
+      "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\hola\\hoy.md",
+      "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\prueba.md",
     ]);
   });
 });
@@ -62,9 +62,9 @@ describe("validateLinks debería validar el enlace", () => {
 });
 describe("searchLinks debería retornar los links de los enlace y convertir un archivo a html", () => {
   it("debería retornar los links de los enlace ", () => {
-    expect(searchLinks("./prueba/prueba.md")).toEqual([
+    expect(searchLinks(__dirname + "/prueba/prueba.md")).toEqual([
       {
-        file: "./prueba/prueba.md",
+        file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\test/prueba/prueba.md",
         href: "https://nodejs.org/es/about/",
         text: "Acerca de Node.js - Documentación oficial",
       },
@@ -76,10 +76,10 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
     expect(typeof mdLinks).toBe("function");
   });
   it("debería retornar un array de objetos", () => {
-    return mdLinks("../LIM014-mdlinks/prueba/prueba.md").then((result) => {
+    return mdLinks(__dirname + "/prueba/prueba.md").then((result) => {
       expect(result).toEqual([
         {
-          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\prueba.md",
           href: "https://nodejs.org/es/about/",
           text: "Acerca de Node.js - Documentación oficial",
         },
@@ -87,12 +87,12 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
     });
   });
   it("debería retornar un array de objetos ok, status ", () => {
-    return mdLinks("../LIM014-mdlinks/prueba/prueba.md", {
+    return mdLinks(__dirname + "/prueba/prueba.md", {
       validate: true,
     }).then((result) => {
       expect(result).toEqual([
         {
-          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\prueba.md",
           href: "https://nodejs.org/es/about/",
           status: 200,
           statusText: "OK",
@@ -102,12 +102,12 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
     });
   });
   it("debería retornar un array de objetos ok, status ", () => {
-    return mdLinks("../LIM014-mdlinks/prueba", {
+    return mdLinks(__dirname + "/prueba", {
       validate: true,
     }).then((result) => {
       expect(result).toEqual([
         {
-          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\hola\\hoy.md",
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\hola\\hoy.md",
           href: "https://nodejs.org/es/about/",
           status: 200,
           statusText: "OK",
@@ -116,7 +116,7 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
         {
           href: "https://nodejs.org/es/about/",
           text: "Acerca de Node.js - Documentación oficial",
-          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\prueba.md",
           statusText: "OK",
           status: 200,
         },
@@ -124,22 +124,20 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
     });
   });
   it("debería retornar un array de objetos ok, status ", () => {
-    return mdLinks("../LIM014-mdlinks/prueba", { stats: false }).then(
-      (result) => {
-        expect(result).toEqual([
-          {
-            file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\hola\\hoy.md",
-            href: "https://nodejs.org/es/about/",
-            text: "Acerca de Node.js - Documentación oficial",
-          },
-          {
-            href: "https://nodejs.org/es/about/",
-            text: "Acerca de Node.js - Documentación oficial",
-            file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\prueba\\prueba.md",
-          },
-        ]);
-      }
-    );
+    return mdLinks(__dirname + "/prueba", { stats: false }).then((result) => {
+      expect(result).toEqual([
+        {
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\hola\\hoy.md",
+          href: "https://nodejs.org/es/about/",
+          text: "Acerca de Node.js - Documentación oficial",
+        },
+        {
+          href: "https://nodejs.org/es/about/",
+          text: "Acerca de Node.js - Documentación oficial",
+          file: "C:\\Users\\ERIKA\\LIM014-mdlinks\\test\\prueba\\prueba.md",
+        },
+      ]);
+    });
   });
 });
 describe("statsLinks función valida los Total, Unique y Broken", () => {
