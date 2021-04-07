@@ -17,17 +17,29 @@ const msn = (msn) => {
     )
   );
 };
+program.addHelpText(
+  "after",
+  chalk.hex("#FFCAD4")(
+    `
+
+  ╔==========================================================================╗
+  |                                  HELP!!                                  |
+  |==========================================================================|
+  |                             -v, --validate                               |
+  |                   "Valida si el status de los links"                     |
+  |                              -s, --stats                                 |
+  |       "Muestra estadisticas de los links(Total, Unique y Broken)"        |
+  |                         -s,-v --stats --validate                         |
+  | "Devuelve estadísticas que necesiten de los resultados de la validación" |
+  '--------------------------------------------------------------------------'
+`
+  )
+);
 program
   .arguments("<path-to-file>")
-  .option("-v, --validate", "Valida si los status de los links")
-  .option(
-    "-s, --stats",
-    "Muestra estadisticas de los links(Total, Unique y Broken)"
-  )
-  .option(
-    "-s,-v --stats --validate",
-    "Devuelve estadísticas que necesiten de los resultados de la validación."
-  )
+  .option("-v, --validate")
+  .option("-s, --stats")
+  .option("-s,-v --stats --validate")
 
   .action((path) => {
     const options = program.opts();
