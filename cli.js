@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const chalk = require("chalk");
 const { mdLinks } = require("./src/index.js");
-const { statsLinks, getMd } = require("./src/md-links.js");
+const { statsLinks } = require("./src/md-links.js");
 const { message, messageCat, messaCat } = require("./image/imagenes.js");
 const figlet = require("figlet");
 const program = require("commander");
@@ -128,8 +128,3 @@ program
     resolve(msn("MD-LINKS"));
   });
 })();
-/*console.log(
-            `${chalk.hex("#7D53DE").bold(link.href)}\t ${chalk
-              .hex("#DAFFEF")
-              .dim(link.text)}\t ${chalk.hex("#E3BAC6").dim(link.file)}\t`
-          ); */
