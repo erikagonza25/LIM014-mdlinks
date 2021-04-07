@@ -11,6 +11,9 @@ npm install erikagonza25-md-links
 ## Diagrama de Flujo
 
 ![Screenshot](./image/DiagramadeFlujoAPI.png)
+
+---
+
 ![Screenshot](./image/DiagramadeFlujoCLI.png)
 
 ### Archivos del proyecto
