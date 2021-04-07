@@ -58,17 +58,31 @@ program
         console.log(chalk.hex("#FFCAD4")(message));
       } else if (options.validate && !options.stats) {
         arrayLinks.forEach((link) => {
-          console.log(
-            chalk.hex("#7D53DE").bold(link.href) +
-              "  " +
-              chalk.hex("#DAFFEF").dim(link.text) +
-              "  " +
-              chalk.hex("#E3BAC6").dim(link.file) +
-              "  " +
-              chalk.hex("#31AFD4").dim(link.status) +
-              "  " +
-              chalk.hex("#F7CB15").dim(link.statusText)
-          );
+          if (link.status >= 200 && link.status < 400) {
+            console.log(
+              chalk.hex("#7D53DE").bold(link.href) +
+                "  " +
+                chalk.hex("#DAFFEF").dim(link.text) +
+                "  " +
+                chalk.hex("#E3BAC6").dim(link.file) +
+                "  " +
+                chalk.hex("#91F5AD").dim(link.status) +
+                "  " +
+                chalk.hex("#00A878").dim(link.statusText)
+            );
+          } else {
+            console.log(
+              chalk.hex("#7D53DE").bold(link.href) +
+                "  " +
+                chalk.hex("#DAFFEF").dim(link.text) +
+                "  " +
+                chalk.hex("#E3BAC6").dim(link.file) +
+                "  " +
+                chalk.hex("#ED6A5A").dim(link.status) +
+                "  " +
+                chalk.hex("#D62839").dim(link.statusText)
+            );
+          }
         });
         console.log(chalk.hex("#FFCAD4")(messageCat));
       } else if (!options.validate && options.stats) {
