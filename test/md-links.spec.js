@@ -75,7 +75,7 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
   it("es una función", () => {
     expect(typeof mdLinks).toBe("function");
   });
-  it("debería retornar un array de objetos", () => {
+  it("debería retornar un array de objetos file, href, text", () => {
     return mdLinks(__dirname + "/prueba/prueba.md").then((result) => {
       expect(result).toEqual([
         {
@@ -86,7 +86,7 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
-  it("debería retornar un array de objetos ok, status ", () => {
+  it("debería retornar un array de objetos ok, status de un archivo ", () => {
     return mdLinks(__dirname + "/prueba/prueba.md", {
       validate: true,
     }).then((result) => {
@@ -101,7 +101,7 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
-  it("debería retornar un array de objetos ok, status ", () => {
+  it("debería retornar un array de objetos ok, status de un directorio ", () => {
     return mdLinks(__dirname + "/prueba", {
       validate: true,
     }).then((result) => {
@@ -123,7 +123,7 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
-  it("debería retornar un array de objetos ok, status ", () => {
+  it("debería retornar un array de objetos file,href,text si el stats es igual a false", () => {
     return mdLinks(__dirname + "/prueba", { stats: false }).then((result) => {
       expect(result).toEqual([
         {

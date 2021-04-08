@@ -38,7 +38,7 @@ const mdLinks = (paths, option) => {
   });
 };
 
-/*mdLinks("./prueba", { validate: true })
+mdLinks("user.js", { validate: true })
   .then((result) => console.log(result))
-  .catch(console.error);*/
+  .catch(console.error);
 module.exports = { mdLinks };
