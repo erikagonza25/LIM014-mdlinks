@@ -6,6 +6,12 @@
   "directories": {
     "test": "test"
   },
+  "bin":{
+    "md-links":"./cli.js"
+  },
+  "engines":{
+    "node":">=10"
+  },
   "scripts": {
     "test": "jest --verbose --coverage",
     "dev": "nodemon index.js"
@@ -40,6 +46,5 @@
     "markdown-to-html": "^0.0.13",
     "marked": "^0.3.19",
     "node-fetch": "^2.6.1"
-  },
-  "bin": "./cli.js"
+  }
 }
