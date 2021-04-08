@@ -6,7 +6,7 @@ Es una librería que permite extraer los links dentro de un archivo Markdown (.m
 
 ## Instalación
 
-npm install erikagonza25-md-links
+npm install -g erikagonza25/LIM014-mdlinks
 
 ## Diagrama de Flujo
 
