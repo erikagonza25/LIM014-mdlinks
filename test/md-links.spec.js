@@ -139,7 +139,7 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
-  it("the fetch fails with an error", () => {
+  it("deberia retornar un mensaje de error", () => {
     return expect(mdLinks("user.js")).rejects.toMatch("No es un archivo .md");
   });
 });
