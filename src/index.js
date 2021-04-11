@@ -12,23 +12,27 @@ const mdLinks = (paths, option) => {
     let containFile = [];
     let fileDirectory = directoryOrFail(paths);
     if (fileDirectory.isFile(paths)) {
-      getMd(paths) ? containFile.push(existRut(paths)) : "Error";
-      containFile.map((file) => {
-        if (option && option.validate) {
-          Promise.all(joinFunction(file)).then((values) => {
-            resolve(values);
-          });
-        } else {
-          resolve(searchLinks(file));
-        }
-      });
+      if (getMd(paths)) {
+        containFile.push(existRut(paths));
+        containFile.map((file) => {
+          if (option && option.validate) {
+            Promise.all(joinFunction(file)).then((values) => {
+              resolve(values);
+            });
+          } else {
+            resolve(searchLinks(file));
+          }
+        });
+      } else {
+        reject("No es un archivo .md");
+      }
     } else {
       containFile = readDirectory(paths);
-      const listAll = containFile.reduce((acumulador, file) => {
+      const listAll = containFile.reduce((accumulator, file) => {
         if (option.stats || option.validate) {
-          return acumulador.concat(joinFunction(file));
+          return accumulator.concat(joinFunction(file));
         } else {
-          return acumulador.concat(searchLinks(file));
+          return accumulator.concat(searchLinks(file));
         }
       }, []);
       Promise.all(listAll).then((values) => {
@@ -38,7 +42,4 @@ const mdLinks = (paths, option) => {
   });
 };
 
-/*mdLinks("user.js", { validate: true })
-  .then((result) => console.log(result))
-  .catch(console.error);*/
 module.exports = { mdLinks };
