@@ -7,17 +7,16 @@ const figlet = require("figlet");
 const program = require("commander");
 
 // Mostrar un banner con un mensaje formado por caracteres.
-const msn = (msn) => {
-  console.log(
-    chalk.hex("#EB8A90").bold(
-      figlet.textSync(msn, {
-        font: "Larry 3D",
-        horizontalLayout: "default",
-        verticalLayout: "default",
-      })
-    )
-  );
-};
+const msn = "MD-LINKS";
+console.log(
+  chalk.hex("#EB8A90").bold(
+    figlet.textSync(msn, {
+      font: "Larry 3D",
+      horizontalLayout: "default",
+      verticalLayout: "default",
+    })
+  )
+);
 program.addHelpText(
   "after",
   chalk.hex("#FFCAD4")(
@@ -27,9 +26,9 @@ program.addHelpText(
   |                                  HELP!!                                  |
   |==========================================================================|
   |                             -v, --validate                               |
-  |                   "Valida si el status de los links"                     |
+  |                      "Valida el status de los links"                     |
   |                              -s, --stats                                 |
-  |       "Muestra estadisticas de los links(Total, Unique y Broken)"        |
+  |       "Muestra estadisticas de los links(Total, Unique)"                 |
   |                         -s,-v --stats --validate                         |
   | "Devuelve estadísticas que necesiten de los resultados de la validación" |
   '--------------------------------------------------------------------------'
@@ -119,11 +118,3 @@ program
     });
   })
   .parse(process.argv);
-
-// IIFE (Immediately Invoked Function Expression)
-
-(() => {
-  return new Promise((resolve) => {
-    resolve(msn("MD-LINKS"));
-  });
-})();
