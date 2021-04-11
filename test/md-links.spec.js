@@ -139,6 +139,9 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
+  it("the fetch fails with an error", () => {
+    return expect(mdLinks("user.js")).rejects.toMatch("No es un archivo .md");
+  });
 });
 describe("statsLinks función valida los Total, Unique y Broken", () => {
   it("deberia retornar total, unique, broken", () => {
