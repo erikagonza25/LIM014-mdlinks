@@ -16,11 +16,9 @@ const readDirectory = (rut) => {
   fs.readdirSync(rut).map(function (file) {
     const subpath = rut + "/" + file;
     if (fs.statSync(subpath).isDirectory()) {
-      return filelist.push(
-        readDirectory(path.normalize(path.resolve(subpath)))
-      );
-    } else if (path.extname(subpath) === ".md") {
-      return filelist.push(path.normalize(path.resolve(rut + "/" + file)));
+      return filelist.push(readDirectory(existRut(subpath)));
+    } else if (getMd(subpath)) {
+      return filelist.push(existRut(rut + "/" + file));
     }
   });
 
@@ -60,7 +58,7 @@ const validateLinks = (link) => {
       statusText: "FAIL",
     }));
 };
-// Función en la cual se une changeMdToHtml y validateLinks para retorna href, file, text, status , ok
+// Función en la cual se une searchLinks y validateLinks para retorna href, file, text, status , ok
 const joinFunction = (file) => {
   return searchLinks(file).map((el) => {
     let joinOfFunctions = validateLinks(el.href);
