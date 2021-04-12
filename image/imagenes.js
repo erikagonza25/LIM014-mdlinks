@@ -22,10 +22,10 @@ const messaCat = `
 `;
 const messageError = `
 |￣￣￣￣￣￣￣￣￣￣￣￣￣|
-   La ruta no existe o
+    La ruta no existe o
  tu archivo no es Markdown
 |＿＿＿＿＿＿＿＿＿＿＿＿＿|
-        ( __/)   ||
+        ( __/)  ||
         (•ㅅ•)  ||
         /  　 づ
 `;
