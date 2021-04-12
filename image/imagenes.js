@@ -21,9 +21,13 @@ const messaCat = `
 
 `;
 const messageError = `
-╔═══════════════════════════╗
-║ No es un archivo Markdown ║
-╚═══════════════════════════╝
+|￣￣￣￣￣￣￣￣￣￣￣￣￣|
+   La ruta no existe o
+ tu archivo no es Markdown
+|＿＿＿＿＿＿＿＿＿＿＿＿＿|
+         (\__/)  ||
+         (•ㅅ•)  ||
+         /  　 づ
 `;
 module.exports = {
   message,
