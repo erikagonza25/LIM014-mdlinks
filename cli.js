@@ -6,7 +6,7 @@ const {
   message,
   messageCat,
   messaCat,
-  prueba,
+  messageError,
 } = require("./image/imagenes.js");
 const figlet = require("figlet");
 const program = require("commander");
@@ -122,6 +122,6 @@ program
           console.log(chalk.hex("#FFCAD4")(messaCat));
         }
       })
-      .catch(() => console.log(chalk.red(prueba)));
+      .catch(() => console.log(chalk.hex("#ED6A5A").bold(messageError)));
   })
   .parse(process.argv);

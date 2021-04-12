@@ -20,17 +20,14 @@ const messaCat = `
 ░░░░╚╦═══╝░░░░░╠╝░░░░░
 
 `;
-const prueba = `
-          __^__                                      __^__
-         ( ___ )------------------------------------( ___ )
-          | / |                                      | \ |
-          | / |    Algunas figuras lindas para ti    | \ |
-          |___|                                      |___|
-         (_____)------------------------------------(_____)
+const messageError = `
+╔═══════════════════════════╗
+║ No es un archivo Markdown ║
+╚═══════════════════════════╝
 `;
 module.exports = {
   message,
   messageCat,
   messaCat,
-  prueba,
+  messageError,
 };
