@@ -117,6 +117,6 @@ program
           console.log(chalk.hex("#FFCAD4")(messaCat));
         }
       })
-      .catch(console.error);
+      .catch(console.error(chalk.hex("#FFCAD4")(messaCat)));
   })
   .parse(process.argv);
