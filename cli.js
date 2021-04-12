@@ -2,7 +2,12 @@
 const chalk = require("chalk");
 const { mdLinks } = require("./src/index.js");
 const { statsLinks } = require("./src/md-links.js");
-const { message, messageCat, messaCat } = require("./image/imagenes.js");
+const {
+  message,
+  messageCat,
+  messaCat,
+  prueba,
+} = require("./image/imagenes.js");
 const figlet = require("figlet");
 const program = require("commander");
 
@@ -117,6 +122,6 @@ program
           console.log(chalk.hex("#FFCAD4")(messaCat));
         }
       })
-      .catch(console.error);
+      .catch(() => console.log(chalk.red(prueba)));
   })
   .parse(process.argv);
