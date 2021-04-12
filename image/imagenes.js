@@ -25,9 +25,9 @@ const messageError = `
    La ruta no existe o
  tu archivo no es Markdown
 |＿＿＿＿＿＿＿＿＿＿＿＿＿|
-         (\__/)  ||
-         (•ㅅ•)  ||
-         /  　 づ
+        (\__/)  ||
+        (•ㅅ•)  ||
+        /  　 づ
 `;
 module.exports = {
   message,
