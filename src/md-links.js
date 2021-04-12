@@ -18,7 +18,7 @@ const readDirectory = (rut) => {
     if (fs.statSync(subpath).isDirectory()) {
       return filelist.push(readDirectory(existRut(subpath)));
     } else if (getMd(subpath)) {
-      return filelist.push(existRut(rut + "/" + file));
+      return filelist.push(existRut(subpath));
     }
   });
 
