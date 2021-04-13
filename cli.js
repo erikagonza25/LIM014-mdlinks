@@ -63,7 +63,7 @@ program
           });
           console.log(chalk.hex("#FFCAD4")(message));
         } else if (options.validate && !options.stats) {
-          arrayLinks.forEach((link) => {
+          arrayLinks.map((link) => {
             if (link.status >= 200 && link.status < 400) {
               console.log(
                 chalk.hex("#7D53DE").bold(link.href) +
