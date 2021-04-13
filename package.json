@@ -6,11 +6,11 @@
   "directories": {
     "test": "test"
   },
-  "bin":{
-    "md-links":"./cli.js"
+  "bin": {
+    "md-links": "./cli.js"
   },
-  "engines":{
-    "node":">=10"
+  "engines": {
+    "node": ">=10"
   },
   "scripts": {
     "test": "jest --verbose --coverage",
