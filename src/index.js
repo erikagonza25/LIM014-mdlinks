@@ -16,11 +16,19 @@ const mdLinks = (paths, option) => {
         containFile.push(existRut(paths));
         containFile.map((file) => {
           if (option && option.validate) {
-            Promise.all(joinFunction(file)).then((values) => {
-              resolve(values);
-            });
+            if (joinFunction(file) == 0) {
+              reject("No hay links");
+            } else {
+              Promise.all(joinFunction(file)).then((values) => {
+                resolve(values);
+              });
+            }
           } else {
-            resolve(searchLinks(file));
+            if (searchLinks(file) == 0) {
+              reject("No hay links");
+            } else {
+              resolve(searchLinks(file));
+            }
           }
         });
       } else {
