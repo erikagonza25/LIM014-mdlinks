@@ -139,8 +139,20 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       ]);
     });
   });
-  it("deberia retornar un mensaje de error", () => {
-    return expect(mdLinks("user.js")).rejects.toMatch("No es un archivo .md");
+  it("deberia retornar un mensaje de error No es un archivo .md", () => {
+    return expect(mdLinks("./src/index.js")).rejects.toEqual(
+      "No es un archivo .md"
+    );
+  });
+  it("deberia retornar un mensaje de error No contiene links", () => {
+    return expect(mdLinks("README.md", { validate: false })).rejects.toEqual(
+      "No hay links"
+    );
+  });
+  it("deberia retornar un mensaje de error No contiene links{validate:true}", () => {
+    return expect(mdLinks("README.md", { validate: true })).rejects.toEqual(
+      "No hay links"
+    );
   });
 });
 describe("statsLinks función valida los Total, Unique y Broken", () => {
