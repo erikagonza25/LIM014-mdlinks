@@ -122,6 +122,10 @@ program
           console.log(chalk.hex("#FFCAD4")(messaCat));
         }
       })
-      .catch(() => console.log(chalk.hex("#ED6A5A").bold(messageError)));
+      .catch((error) =>
+        console.log(
+          chalk.hex("#FF0000").bold("\n" + error + "\n" + messageError)
+        )
+      );
   })
   .parse(process.argv);
