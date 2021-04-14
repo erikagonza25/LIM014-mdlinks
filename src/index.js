@@ -43,9 +43,13 @@ const mdLinks = (paths, option) => {
           return accumulator.concat(searchLinks(file));
         }
       }, []);
-      Promise.all(listAll).then((values) => {
-        resolve(values);
-      });
+      if (listAll == 0) {
+        reject("No hay links");
+      } else {
+        Promise.all(listAll).then((values) => {
+          resolve(values);
+        });
+      }
     }
   });
 };

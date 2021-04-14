@@ -154,6 +154,9 @@ describe("mdLinks debería retornar un array de objetos con las propiedades: fil
       "No hay links"
     );
   });
+  it("deberia retornar un mensaje de error No contiene links para un directorio", () => {
+    return expect(mdLinks("./image")).rejects.toEqual("No hay links");
+  });
 });
 describe("statsLinks función valida los Total, Unique y Broken", () => {
   it("deberia retornar total, unique, broken", () => {
